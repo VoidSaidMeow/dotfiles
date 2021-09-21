@@ -1,0 +1,23 @@
+# Ignore Everything
+/*
+
+# Except
+!.gitignore
+!.bashrc
+!.gtkrc-2.0
+
+!/.xmonad
+/.xmonad/*
+!/.xmonad/xmonad.hs
+
+!/.config
+!/.config/xmobar
+!/.config/alacritty
+!/.config/neofetch
+
+/.config/*
+!/.config/starship.toml
+
+
+
+

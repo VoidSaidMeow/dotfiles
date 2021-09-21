@@ -1,0 +1,15 @@
+Config { font = "xft:UbuntuMono Nerd Font:pixelsize=13:antialias=true:hinting=true"
+       , bgColor = "#000000"
+       , fgColor = "#ff0bbb"
+       , position = Static { xpos = 1930, ypos = 4, width = 1580, height = 30 }
+       , lowerOnStart = True
+       , commands = [ Run Cpu ["-t","Cpu <total>%","-H","50","--high","ff0bbb"] 10
+                    , Run Memory ["-t","Ram <used>M"] 10
+                , Run Date "%_d %b %Y, %I:%M %p" "date" 10
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " %UnsafeStdinReader% } <fc=#24FDFF>%date%</fc> { %cpu% <fc=#24FDFF>|</fc> %memory% "
+       }
+
