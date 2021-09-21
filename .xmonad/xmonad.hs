@@ -30,7 +30,7 @@ myClickJustFocuses = False
 
 myModMask       = mod4Mask
 
-myWorkspaces    = ["www","chat","mus","dev","doc","vid","ext","sys","snd"]
+myWorkspaces    = ["main","dev","chat","music","gaming","ext","sys","snd"]
 
 myBorderWidth   = 2
 mySpacing	= 10
