@@ -11,14 +11,14 @@
 /.xmonad/*
 !/.xmonad/xmonad.hs
 
-!/.config
-!/.config/xmobar
-!/.config/alacritty
-!/.config/neofetch
 
 /.config/*
 !/.config/starship.toml
 
-
-
-
+!/.config
+!/.config/xmobar
+!/.config/alacritty
+!/.config/neofetch
+!/.config/nvim
+/.config/nvim/*
+!/.config/nvim/init.vim
