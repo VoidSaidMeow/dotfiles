@@ -7,9 +7,10 @@ alias ls='exa -al --color=always --group-directories-first'
 alias la='exa -a --color=always --group-directories-first'
 alias ll='exa -l --color=always --group-directories-first'  
 
+alias vim=nvim
+
 
 ## STARSHIP PROMPT ## 
 eval "$(starship init bash)"
 
-neofetch | lolcat
-
+neofetch | lolcat --seed 17
