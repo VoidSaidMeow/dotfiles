@@ -1,6 +1,5 @@
 set nocompatible
 
-
 call plug#begin()
 " Language Completion
 Plug 'neoclide/coc.nvim', { 'branch':'release' }
@@ -9,10 +8,14 @@ Plug 'neoclide/coc.nvim', { 'branch':'release' }
 Plug 'itchyny/lightline.vim'
 Plug 'wadackel/vim-dogrun' 
 
+" Tools
+Plug 'preservim/nerdtree'
+
 call plug#end()
 
 "----------------------------Settings---------------------------------
-" General Settings
+
+" General NERDTreeToggle
 syntax enable
 set fileencoding=utf-8
 set clipboard=unnamedplus
@@ -24,6 +27,7 @@ set shiftwidth=4
 set smarttab
 set smartindent
 set autoindent
+
 " Look
 colorscheme dogrun
 set background=dark
@@ -35,14 +39,21 @@ set noshowmode
 
 "------------------------------Shortcuts------------------------------
 
+" General
+let mapleader = ","
+
+" NerdTree Shortcuts
+nmap <leader>n :NERDTreeToggle<CR>
+
 
 "--------------------------Plugin Settings---------------------------- 
 
-" Coc Extensions
+" Coc Extension Settings
 let g:coc_global_extensions = [
 	\ 'coc-omnisharp',
 	\ ]
 
+" LightLine Extension Settings
 let g:lightline = {
-  \ 'colorscheme': 'dogrun',
-  \ }
+   \ 'colorscheme': 'dogrun',
+   \ }
