@@ -7,18 +7,26 @@
 !.bashrc
 !.gtkrc-2.0
 
-!/.xmonad
-/.xmonad/*
-!/.xmonad/xmonad.hs
+!.xmonad
+.xmonad/*
+!.xmonad/xmonad.hs
 
 
-/.config/*
-!/.config/starship.toml
+.config/*
+!.config/starship.toml
 
-!/.config
-!/.config/xmobar
-!/.config/alacritty
-!/.config/neofetch
-!/.config/nvim
-/.config/nvim/*
-!/.config/nvim/init.vim
+!.config
+!.config/xmobar
+!.config/alacritty
+!.config/flameshot
+!.config/gtk-3.0
+!.config/mopidy
+!.config/ncmpcpp
+!.config/neofetch
+!.config/nvim
+.config/nvim/*
+!.config/nvim/init.vim
+!.config/qutebrowser
+.config/qutebrowser/*
+!.config/qutebrowser/config.py
+!.config/zathura

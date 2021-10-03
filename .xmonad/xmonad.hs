@@ -15,12 +15,11 @@ import XMonad.Hooks.DynamicLog
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-
 --- VARIABLES ---
 
 myTerminal      = "alacritty"
 
-myBrowser	= "firefox"
+myBrowser		= "qutebrowser"
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
@@ -48,11 +47,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn "dmenu_run -fn 'Poppins-5'")
+    , ((modm,               xK_p     		), spawn "dmenu_run -fn 'Poppins-5' -nb '#000000' -sf '#ff0bbb' -sb '#000000' -nf '#ffffff'")
 
     -- Flameshot
-    , ((modm              , xK_Print     ), spawn "flameshot gui")
+    , ((modm               , xK_Print     	), spawn "flameshot gui")
 
+    -- Browser
+    , ((modm .|. shiftMask , xK_b    		), spawn "qutebrowser")
 	
     --- WINDOWS ---
 
