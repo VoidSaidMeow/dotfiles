@@ -10,6 +10,7 @@ Plug 'wadackel/vim-dogrun'
 
 " Tools
 Plug 'preservim/nerdtree'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -18,7 +19,7 @@ call plug#end()
 " General NERDTreeToggle
 syntax enable
 set fileencoding=utf-8
-set clipboard=unnamedplus
+set clipboard+=unnamed
 
 " Typing Settings
 set nowrap
@@ -42,8 +43,20 @@ set noshowmode
 " General
 let mapleader = ","
 
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 " NerdTree Shortcuts
-nmap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 
 "--------------------------Plugin Settings---------------------------- 
