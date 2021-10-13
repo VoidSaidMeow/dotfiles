@@ -64,6 +64,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 " Coc Extension Settings
 let g:coc_global_extensions = [
 	\ 'coc-omnisharp',
+	\ 'coc-git',
 	\ ]
 
 " LightLine Extension Settings
