@@ -24,7 +24,7 @@ set clipboard+=unnamed
 " Typing Settings
 set nowrap
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=4 
 set smarttab
 set smartindent
 set autoindent

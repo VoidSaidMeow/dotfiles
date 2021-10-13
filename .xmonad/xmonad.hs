@@ -18,7 +18,6 @@ import qualified Data.Map        as M
 --- VARIABLES ---
 
 myTerminal      = "alacritty"
-
 myBrowser		= "qutebrowser"
 
 myFocusFollowsMouse :: Bool
@@ -32,7 +31,7 @@ myModMask       = mod4Mask
 myWorkspaces    = ["main","dev","chat","music","gaming","ext","sys","snd"]
 
 myBorderWidth   = 2
-mySpacing	= 10
+mySpacing		= 10
 
 myNormalBorderColor  = "#110610"
 myFocusedBorderColor = "#ff0bbb"
@@ -195,9 +194,11 @@ myEventHook = mempty
 
 -- STARTUP HOOK ---
 
+myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "nitrogen --restore &"
-    spawnOnce "picom &"
+	spawnOnce "nitrogen --restore &"
+	spawnOnce "picom &"
+	-- spawnOnce "trayer --edge top --align right --monitor 0 --width 5 --SetDockType true --SetPartialStrut true --expand true --alpha 0 --tint 0x000000 &"
 
 --- RUN XMONAD ---
 
