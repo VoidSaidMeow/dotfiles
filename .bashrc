@@ -1,5 +1,9 @@
 # ~/.bashrc
 
+## EXPORTS ##
+export BORWSER="qutebrowser"
+export EDITOR="vim"
+
 ## ALIASES ##
 
 # ls to exa
