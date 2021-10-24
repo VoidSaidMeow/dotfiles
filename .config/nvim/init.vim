@@ -6,17 +6,18 @@ Plug 'neoclide/coc.nvim', { 'branch':'release' }
 
 " Look
 Plug 'itchyny/lightline.vim'
-Plug 'wadackel/vim-dogrun' 
+Plug 'dracula/vim'
 
 " Tools
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
 "----------------------------Settings---------------------------------
 
-" General NERDTreeToggle
+" General
 syntax enable
 set fileencoding=utf-8
 set clipboard+=unnamed
@@ -30,12 +31,12 @@ set smartindent
 set autoindent
 
 " Look
-colorscheme dogrun
-set background=dark
+colorscheme dracula
+" set background=dark
 set t_Co=256
 set number
 set relativenumber
-"set cursorline
+" set cursorline
 set noshowmode
 
 "------------------------------Shortcuts------------------------------
@@ -65,9 +66,12 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 let g:coc_global_extensions = [
 	\ 'coc-omnisharp',
 	\ 'coc-git',
+	\ 'coc-html',
+	\ 'coc-emmet',
+	\ 'coc-ccls',
 	\ ]
 
 " LightLine Extension Settings
 let g:lightline = {
-   \ 'colorscheme': 'dogrun',
+   \ 'colorscheme': 'dracula',
    \ }
