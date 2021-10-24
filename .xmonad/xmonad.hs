@@ -9,8 +9,27 @@ import XMonad.Util.Run
 
 import XMonad.Layout.Spacing
 
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.Tabbed
+import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import XMonad.Layout.Magnifier
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.ShowWName
+import XMonad.Layout.Simplest
+import XMonad.Layout.Spacing
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
+import XMonad.Layout.WindowNavigation
+import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -19,7 +38,6 @@ import qualified Data.Map        as M
 
 myTerminal      = "alacritty"
 myBrowser		= "qutebrowser"
-
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
 
@@ -31,7 +49,10 @@ myModMask       = mod4Mask
 myWorkspaces    = ["main","dev","chat","music","gaming","ext","sys","snd"]
 
 myBorderWidth   = 2
-mySpacing		= 10
+
+myFont :: String
+myFont = "xft:UbuntuNerd Font Mono:regular:size=9:antialias=true:hinting=true"
+
 
 myNormalBorderColor  = "#110610"
 myFocusedBorderColor = "#ff0bbb"
@@ -54,6 +75,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Browser
     , ((modm .|. shiftMask , xK_b    		), spawn "qutebrowser")
 	
+
     --- WINDOWS ---
 
     -- close focused window
@@ -86,7 +108,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
 
-    -- Swap the focused window with the previous window
+	-- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
 
     -- Shrink the master area
@@ -104,6 +126,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
+	-- Toggle noborder
+	, ((modm			  , xK_f	 ), sendMessage ToggleStruts)
 
     --- EXTRAS ---
 
@@ -163,21 +187,35 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 
 --- LAYOUTS ---
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-myLayout = spacing mySpacing $ avoidStruts (tiled ||| Mirror tiled ||| Full)
-  where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
 
-     -- The default number of windows in the master pane
-     nmaster = 1
+tall     = renamed [Replace "tall"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 12
+           $ mySpacing 8
+           $ ResizableTall 1 (3/100) (1/2) []
+monocle  = renamed [Replace "monocle"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 20 Full
 
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
+myTabTheme = def { fontName            = myFont
+				 , activeColor         = "#46d9ff"
+                 , inactiveColor       = "#313846"
+				 , activeBorderColor   = "#46d9ff"
+                 , inactiveBorderColor = "#282c34"
+                 , activeTextColor     = "#282c34"
+                 , inactiveTextColor   = "#d0d0d0"
+                 }
 
-     -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
-
+myLayout = avoidStruts (withBorder myBorderWidth tall ||| monocle)
 
 --- WINDOW RULES ---
 
@@ -186,11 +224,6 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
-
-
---- EVENT HOOK ---
-
-myEventHook = mempty
 
 -- STARTUP HOOK ---
 
@@ -203,9 +236,9 @@ myStartupHook = do
 --- RUN XMONAD ---
 
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc1"
+    xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobar_altrc"
     xmproc1 <- spawnPipe "xmobar -x 1 ~/.config/xmobar/xmobarrc2"
-    xmonad $ docks def 
+    xmonad $ ewmh def 
         {
         -- simple stuff
         terminal           = myTerminal,
@@ -223,8 +256,8 @@ main = do
 
         -- hooks, layouts
         layoutHook         = myLayout,
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
+        manageHook         = myManageHook <+> manageDocks,
+        handleEventHook    = docksEventHook <+> fullscreenEventHook,
         logHook            = dynamicLogWithPP $ xmobarPP
               { ppOutput = \x -> hPutStrLn xmproc0 x                          -- xmobar on monitor 1
 			      >> hPutStrLn xmproc1 x			      -- xmobar on monitor 2
