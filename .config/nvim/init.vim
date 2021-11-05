@@ -59,6 +59,10 @@ vnoremap <leader>P "+P
 " NerdTree Shortcuts
 nnoremap <leader>n :NERDTreeToggle<CR>
 
+" CoC Autocomplete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<Enter>"
 
 "--------------------------Plugin Settings---------------------------- 
 
