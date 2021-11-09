@@ -73,6 +73,7 @@ let g:coc_global_extensions = [
 	\ 'coc-html',
 	\ 'coc-emmet',
 	\ 'coc-ccls',
+	\ 'coc-tsserver',
 	\ ]
 
 " LightLine Extension Settings
